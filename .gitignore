@@ -1,0 +1,116 @@
+# ========== UNITY GITIGNORE TEMPLATE ==========
+
+# --- Unity Generated Folders ---
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+Recordings/
+
+# --- Asset Store and Package Manager ---
+/Assets/AssetStoreTools*
+/Assets/Plugins/Editor/JetBrains*
+/Packages/com.unity.collab-proxy/
+Packages/com.unity.ide.rider/
+Packages/com.unity.ide.visualstudio/
+Packages/com.unity.ide.vscode/
+
+# --- Crash Dumps and Temporary Files ---
+*.stackdump
+*.temp
+*.tmp
+*.bak
+*.swp
+*.pidb
+*.suo
+*.user
+*.userprefs
+*.csproj
+*.unityproj
+*.sln
+*.booproj
+
+# --- Auto-generated VS / Rider / JetBrains files ---
+.vs/
+.idea/
+*.DotSettings.user
+*.Rider/
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Builds / Binary Outputs ---
+*.apk
+*.aab
+*.xcodeproj
+*.xcworkspace
+*.exe
+*.app
+*.dll
+*.so
+*.pdb
+*.mdb
+*.lib
+*.bundle
+*.dylib
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+
+# --- TextMeshPro Auto Files ---
+[Tt]extMesh Pro/
+[Tt]extMesh Pro/Examples & Extras/
+
+# --- Unity Collaborate & Plastic SCM ---
+.collab/
+.plastic/
+PlasticSCM.lock
+
+# --- Cache Directories ---
+/Assets/StreamingAssets/aa/*
+/Assets/StreamingAssets/AssetBundles/*
+/Assets/AddressableAssetsData/*/catalog.json
+/Assets/AddressableAssetsData/*/catalog.bundle
+/Library/PlayerDataCache/
+ProjectSettings/EditorBuildSettings.asset.meta
+
+# --- Build Artifacts ---
+/Builds/
+/Build/
+
+# --- VS Code ---
+.vscode/
+.history/
+
+# --- Logs ---
+*.log
+*.log.*
+
+# --- Rider / JetBrains Cache ---
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea/.idea.*
+
+# --- Other ---
+*.apk
+*.unitypackage
+*.zip
+*.7z
+*.tar
+*.gz
+*.rar
+*.bak
+
+# --- Unity Cloud Diagnostics ---
+UnityCloudDiagnostics/
+
+# ========== END OF FILE ==========
