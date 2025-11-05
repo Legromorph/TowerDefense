@@ -11,9 +11,9 @@ public class TankEnemy : EnemyBase
     }
 
 
-    protected virtual void Die()
+    protected override void Die()
     {
-        base.Die()
+        base.Die();
         
     }
 }

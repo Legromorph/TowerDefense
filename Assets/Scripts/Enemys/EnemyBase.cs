@@ -6,6 +6,8 @@ public abstract class EnemyBase : MonoBehaviour
     public float speed = 2f;
     public int maxHealth = 5;
     protected int currentHealth;
+    [Header("Path")]
+    [SerializeField]
     protected Transform[] waypoints;
     protected int waypointIndex = 0;
 
