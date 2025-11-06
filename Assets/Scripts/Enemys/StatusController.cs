@@ -13,10 +13,29 @@ public class StatusController : MonoBehaviour
 
     public void AddEffect(StatusEffect effect)
     {
-        activeEffects.Add(effect);
-        effect.ApplyEffect();
+        var existingEffect = activeEffects.Find(e => e.Name == effect.Name);
 
-        CheckForCombinations();
+        if (existingEffect != null)
+        {
+            if (!existingEffect.IsStackable)
+            {
+                Debug.Log("Stack schon drauf!");
+                return;
+            }
+            else
+            {
+                Debug.Log("Add Stack");
+                existingEffect.AddStack();
+                return;
+            }
+        }
+        else
+        {
+            Debug.Log($"Neuer Effekt angewendet: {effect.Name}");
+            effect.ApplyEffect();
+            activeEffects.Add(effect);
+            CheckForCombinations();
+        }
     }
 
     public void RemoveEffect(StatusEffect effect)
@@ -39,8 +58,8 @@ public class StatusController : MonoBehaviour
 
     private void CheckForCombinations()
     {
-        bool hasFrost = activeEffects.Exists(e => e.name == "FrostSlow");
-        bool hasSuperFrost = activeEffects.Exists(e => e.name == "SuperFrost");
+        bool hasFrost = activeEffects.Exists(e => e.Name == "FrostSlow");
+        bool hasSuperFrost = activeEffects.Exists(e => e.Name == "SuperFrost");
 
         if (hasFrost && hasSuperFrost)
         {
@@ -50,6 +69,6 @@ public class StatusController : MonoBehaviour
 
     private void ApplyFreeze()
     {
-        enemy.currentSpeed = 0;
+        enemy.AddSpeedModifier(0);
     }
 }

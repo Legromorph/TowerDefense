@@ -1,21 +1,29 @@
 public abstract class StatusEffect
 {
-    public string name;
-    public float duration;
-    protected EnemyBase enemy;
+    public string Name { get; protected set; }
+    public float Duration { get; protected set; }
+    public bool IsStackable { get; private set; }
+    public EnemyBase Enemy { get; protected set; } 
+    protected int stackCount = 1;
 
-    public StatusEffect(EnemyBase enemy, float duration)
+    public StatusEffect(EnemyBase enemy, float duration, bool isStackable = false)
     {
-        this.enemy = enemy;
-        this.duration = duration;
+        this.Enemy = enemy;
+        this.Duration = duration;
+        IsStackable = isStackable;
     }
 
     public virtual void ApplyEffect() { }
     public virtual void RemoveEffect() { }
     public virtual void UpdateEffect(float deltaTime)
     {
-        duration -= deltaTime;
+        Duration -= deltaTime;
     }
 
-    public bool IsExpired => duration <= 0;
+    public virtual void AddStack()
+    {
+        stackCount++;
+    }
+
+    public bool IsExpired => Duration <= 0;
 }

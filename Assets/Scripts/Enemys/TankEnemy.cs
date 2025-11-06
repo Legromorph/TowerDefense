@@ -5,9 +5,9 @@ public class TankEnemy : EnemyBase
     protected override void Start()
     {
         base.Start();
-        normalSpeed = normalSpeed * 2.5f;
-        maxHealth = Mathf.RoundToInt(maxHealth * 2.5f);
-        currentHealth = maxHealth;
+        NormalSpeed = NormalSpeed * 2.5f;
+        MaxHealth = Mathf.RoundToInt(MaxHealth * 2.5f);
+        CurrentHealth = MaxHealth;
     }
 
 

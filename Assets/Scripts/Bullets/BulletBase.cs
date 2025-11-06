@@ -3,8 +3,8 @@ using UnityEngine;
 public class BulletBase : MonoBehaviour
 {
     protected Transform target;
-    protected float speed = 10f;
-    protected int damage;
+    [SerializeField] protected float speed = 10f;
+    [SerializeField] protected int damage;
 
     public virtual void Initialize(Transform _target, int _damage)
     {

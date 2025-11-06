@@ -1,17 +1,26 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    public float normalSpeed = 2f;
-    public float currentSpeed;
-    public int maxHealth = 5;
-    protected int currentHealth;
-    [Header("Path")]
-    [SerializeField]
-    protected Transform[] waypoints;
-    protected int waypointIndex = 0;
+    [SerializeField] private float normalSpeed = 2f;
+    [SerializeField] private int maxHealth = 5;
 
+    [SerializeField] private float currentSpeed;
+    [SerializeField] private int currentHealth;
+
+    public float NormalSpeed { get => normalSpeed; protected set => normalSpeed = value; }
+    public int MaxHealth { get => maxHealth; protected set => maxHealth = value; }
+    public float CurrentSpeed { get => currentSpeed; protected set => currentSpeed = value; }
+    public int CurrentHealth { get => currentHealth; protected set => currentHealth = value; }
+
+
+    private readonly List<float> speedModifiers = new List<float>();
+
+    [Header("Path")]
+    [SerializeField] protected Transform[] waypoints;
+    protected int waypointIndex = 0;
 
     protected virtual void Start()
     {
@@ -35,7 +44,7 @@ public abstract class EnemyBase : MonoBehaviour
 
         Transform target = waypoints[waypointIndex];
         Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * currentSpeed * Time.deltaTime, Space.World);
+        transform.Translate(dir.normalized * GetEffectiveSpeed() * Time.deltaTime, Space.World);
 
         if (Vector3.Distance(transform.position, target.position) < 0.2f)
         {
@@ -49,34 +58,25 @@ public abstract class EnemyBase : MonoBehaviour
 
     public virtual void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        CurrentHealth -= amount;
+        if (CurrentHealth <= 0)
             Die();
     }
 
-    protected virtual void ReachGoal()
+    protected virtual void ReachGoal() => Destroy(gameObject);
+    protected virtual void Die() => Destroy(gameObject);
+
+    // ---- SPEED SYSTEM ----
+
+    public float GetEffectiveSpeed()
     {
-        Destroy(gameObject);
+        float totalFactor = 1f;
+        foreach (float mod in speedModifiers)
+            totalFactor *= mod;
+        return normalSpeed * totalFactor;
     }
 
-    protected virtual void Die()
-    {
-        Destroy(gameObject);
-    }
-
-    public virtual void ChangeSpeed(float newSpeed)
-    {
-        currentSpeed = newSpeed;
-    }
-
-    public virtual float GetNormalSpeed()
-    {
-        return normalSpeed;
-    }
-
-    public virtual float GetCurrentSpeed()
-    {
-        return currentSpeed;
-    }
-
+    public void AddSpeedModifier(float factor) => speedModifiers.Add(factor);
+    public void RemoveSpeedModifier(float factor) => speedModifiers.Remove(factor);
+    public void ResetSpeedModifiers() => speedModifiers.Clear();
 }
