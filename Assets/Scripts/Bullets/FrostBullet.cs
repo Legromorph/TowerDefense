@@ -16,20 +16,17 @@ public class FrostBullet : BulletBase
     protected override void HitTarget()
     {
         EnemyBase e = target.GetComponent<EnemyBase>();
+        StatusController sc = e.GetComponent<StatusController>();
         if (e != null)
         {
             e.TakeDamage(damage);
-            e.StartCoroutine(SlowEffect(e));
+            if (sc != null)
+            {
+                sc.AddEffect(new FrostSlowEffect(e, slowDuration, slowFactor));
+            }
         }
 
         Destroy(gameObject);
     }
 
-    private IEnumerator SlowEffect(EnemyBase enemy)
-    {
-        float originalSpeed = enemy.speed;
-        enemy.ChangeSpeed(originalSpeed * slowFactor);
-        yield return new WaitForSeconds(slowDuration);
-        enemy.ChangeSpeed(originalSpeed);
-    }
 }

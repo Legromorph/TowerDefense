@@ -3,7 +3,8 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    public float speed = 2f;
+    public float normalSpeed = 2f;
+    public float currentSpeed;
     public int maxHealth = 5;
     protected int currentHealth;
     [Header("Path")]
@@ -11,9 +12,11 @@ public abstract class EnemyBase : MonoBehaviour
     protected Transform[] waypoints;
     protected int waypointIndex = 0;
 
+
     protected virtual void Start()
     {
         currentHealth = maxHealth;
+        currentSpeed = normalSpeed;
     }
 
     protected virtual void Update()
@@ -32,7 +35,7 @@ public abstract class EnemyBase : MonoBehaviour
 
         Transform target = waypoints[waypointIndex];
         Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        transform.Translate(dir.normalized * currentSpeed * Time.deltaTime, Space.World);
 
         if (Vector3.Distance(transform.position, target.position) < 0.2f)
         {
@@ -63,6 +66,17 @@ public abstract class EnemyBase : MonoBehaviour
 
     public virtual void ChangeSpeed(float newSpeed)
     {
-        speed = newSpeed;
+        currentSpeed = newSpeed;
     }
+
+    public virtual float GetNormalSpeed()
+    {
+        return normalSpeed;
+    }
+
+    public virtual float GetCurrentSpeed()
+    {
+        return currentSpeed;
+    }
+
 }
